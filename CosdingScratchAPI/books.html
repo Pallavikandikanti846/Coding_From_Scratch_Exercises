@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gloogle Books API</title>
+</head>
+<body>
+    <h1>Google Books API</h1>
+    <ul id="books">
+     
+    </ul>
+    <script>
+        var key="AIzaSyA7bAA8j5U_CWkiZZFbRtVOUN35Y2AKQRs";
+        var url="https://www.googleapis.com/books/v1/volumes?q=quilting";
+        var search="JavaScript";
+        
+        var httpRequest=new XMLHttpRequest();
+        var books=document.getElementById("books");
+        var image=document.getElementById("image");
+
+        
+        httpRequest.onreadystatechange=function(){
+            console.log(httpRequest.readyState);
+            console.log(httpRequest.responseText);
+
+            if(httpRequest.readyState==XMLHttpRequest.DONE){
+                var data=JSON.parse(httpRequest.responseText);
+                console.log(data);
+                var items=data.items;
+                
+                for(i=0;i<items.length;i++){
+                  var bookTitles="Book "+(i+1)+" Title : " +items[i].volumeInfo.title;
+                  var bookLinks=items[i].volumeInfo.canonicalVolumeLink;
+                  var bookImages=items[i].volumeInfo.imageLinks.smallThumbnail;
+
+                  var newBook="<li><a href='" +bookLinks+"'>" +bookTitles+ "</a><br>" + "<img src='" +bookImages+ "'>" + "</li>";
+                  books.innerHTML +=newBook;
+                  console.log(bookLinks,bookImages);
+                  
+                  
+                  
+                }
+                
+            }
+        };
+
+        httpRequest.open("GET",url+search);
+        httpRequest.send();
+    </script>
+</body>
+</html>

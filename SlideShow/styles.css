@@ -1,0 +1,20 @@
+#slideshow{
+    border:1px solid blue;
+    width:800px;
+    height:400px;
+    position: relative;
+}
+
+.slide{
+    position: absolute;
+    top:0;
+    left:0;
+
+}
+
+.slide img{
+    display: none;
+}
+.slide img:first-child{
+    display: block;
+}
